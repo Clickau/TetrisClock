@@ -5,6 +5,7 @@ Tetris::Tetris(Adafruit_GFX *display)
 {
     this->display = display;
     this->scale = 1;
+    clear();
 }
 
 void Tetris::clear()
