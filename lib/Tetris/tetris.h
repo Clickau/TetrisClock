@@ -3,7 +3,7 @@
 
 #define TETRIS_MAX_CHARS 9
 #define TETRIS_SPACE_BETWEEN_CHARACTERS 7
-#define TETRIS_FALLING_Y_POS 16
+#define TETRIS_FALLING_Y_POS 8
 #define TETRIS_EMPTY_CHAR (char) 255
 
 #include <Adafruit_GFX.h>
@@ -26,8 +26,8 @@ public:
     void clear();
 
     void test();
-    bool draw();
-    bool drawTime(bool displayColon);
+    bool draw(bool animate = true);
+    bool drawTime(bool displayColon, bool animate = true);
     void drawColon(bool displayColon);
     void setText(const char *text, int len, int x, int y, bool forceRefresh = false);
     void setTimeString(const char *time, int x, int y, bool forceRefresh = false);

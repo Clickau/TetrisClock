@@ -27,8 +27,13 @@ void Tetris::test()
     }
 }
 
-bool Tetris::draw()
+bool Tetris::draw(bool animate)
 {
+    if (!animate)
+    {
+        for (int i = 0; i < TETRIS_MAX_CHARS && states[i].c != TETRIS_EMPTY_CHAR; i++)
+            states[i].fallingBlockIndex = TetrisCharacters::getBlocksPerCharacter(states[i].c);
+    }
     bool finishedAnimating = true;
     for (int i = 0; i < TETRIS_MAX_CHARS && states[i].c != TETRIS_EMPTY_CHAR; i++)
     {
@@ -60,8 +65,13 @@ bool Tetris::draw()
     return finishedAnimating;
 }
 
-bool Tetris::drawTime(bool displayColon)
+bool Tetris::drawTime(bool displayColon, bool animate)
 {
+    if (!animate)
+    {
+        for (int i = 0; i < TETRIS_MAX_CHARS && states[i].c != TETRIS_EMPTY_CHAR; i++)
+            states[i].fallingBlockIndex = TetrisCharacters::getBlocksPerCharacter(states[i].c);
+    }
     bool finishedAnimating = true;
     // HH:MM so 5 characters
     for (int i = 0; i < 5; i++)
@@ -161,11 +171,11 @@ void Tetris::setText(const char *text, int len, int x, int y, bool forceRefresh)
     
     for (int i = 0; i < TETRIS_MAX_CHARS; i++)
     {
-        if (!forceRefresh && states[i].c == text[i])
+        if (!forceRefresh && states[i].c == buf[i])
             continue;
 
         states[i] = {
-            text[i], /* character */
+            buf[i], /* character */
             0, /* falling block index */
             x + i * TETRIS_SPACE_BETWEEN_CHARACTERS * scale, /* xPos */
             y, /* finalYPos */
